@@ -67,9 +67,17 @@ namespace TaskPractice.Controllers
 
 
         [Route("Register")]
-        [Authorize]
-        public IActionResult Register()
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult<RE<LoginResponse>> Register()
         {
+
+            _userService.AddUser(new ModelLayer.Entity.User() { password = "a",username = "m"});
+
+
+
+
+
             return Ok();
         }
     }

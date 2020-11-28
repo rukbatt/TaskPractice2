@@ -10,5 +10,7 @@ namespace TaskPractice.OAuth
     public interface IUserService
     {
         User Authenticate(LoginRequest user);
+
+        User AddUser(ModelLayer.Entity.User user);
     }
 }
