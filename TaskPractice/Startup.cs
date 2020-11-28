@@ -53,14 +53,6 @@ namespace TaskPractice
                 };
             });
 
-
-            //services.AddAuthorization(config =>
-            //{
-            //    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
-            //    config.AddPolicy(Policies.User, Policies.UserPolicy());
-            //});
-
-
             services.AddScoped<OAuth.IUserService, OAuth.UserService>();
         }
 
