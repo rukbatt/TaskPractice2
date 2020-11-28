@@ -8,18 +8,31 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using TaskPractice.ModelLayer.Entity;
+using TaskPractice.Models;
 using TaskPractice.RequestResponse.Account;
 
 namespace TaskPractice.OAuth
 {
     public class UserService : IUserService
     {
+        TaskPracticeDBContext _dbContext;
 
         private readonly IConfiguration _config;
-        public UserService(IConfiguration config)
+        public UserService(IConfiguration config, TaskPracticeDBContext db)
         {
             _config = config;
+            _dbContext = db;    
         }
+
+        public User AddUser(User user)
+        {
+             _dbContext.Add(user);
+
+            _dbContext.SaveChanges();
+            return user;
+
+        }
+
         public User Authenticate(LoginRequest user)
         {
             if (user.password == "123456" && user.username == "mertaltintas")
@@ -28,7 +41,6 @@ namespace TaskPractice.OAuth
                 {
                     id = 123456,
                     password = user.password,
-                    birthDate = DateTime.Now,
                     username = user.username
                 };
 
@@ -60,5 +72,7 @@ namespace TaskPractice.OAuth
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+  
     }
 }

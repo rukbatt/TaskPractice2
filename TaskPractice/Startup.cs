@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -52,6 +53,12 @@ namespace TaskPractice
                     ClockSkew = TimeSpan.FromDays(365)
                 };
             });
+
+            services.AddHttpClient();
+            services.AddDbContext<TaskPracticeDBContext>(options =>
+                options.UseSqlServer(Configuration["DbConnection"]));
+
+
 
             services.AddScoped<OAuth.IUserService, OAuth.UserService>();
         }
